@@ -81,8 +81,9 @@ public class GUI extends JFrame {
                 this.image = new ImageIcon(getClass().getResource("/resources/Hobby.jpeg"));
                 imageLabel.setIcon(image);
             }else if(e.getSource() == myExpectations) {
-                expectativesText.setText("I expect to get the best of everyone of you \n" +
-                        "My contact is carlos.felipe.montoya@correounivalle.edu.co");
+                expectativesText.setText("""
+                        I hope I can get as much as possible
+                         from my classmates and teacher""");
                 expectativesText.setBackground(null);
                 expectativesText.setForeground(Color.BLACK);
                 containerImage.add(expectativesText);
