@@ -5,8 +5,7 @@ import myPresentation.Title;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class GUI extends JFrame {
     //atributos
@@ -49,9 +48,9 @@ public class GUI extends JFrame {
         containerButtons.add(myHobby);
         containerButtons.add(myExpectations);
 
-        myPhoto.addActionListener(listener);
-        myHobby.addActionListener(listener);
-        myExpectations.addActionListener(listener);
+        myPhoto.addMouseListener(listener);
+        myHobby.addMouseListener(listener);
+        myExpectations.addKeyListener(listener);
 
         this.add(title, BorderLayout.NORTH);
         this.add(containerButtons, BorderLayout.SOUTH);
@@ -67,29 +66,79 @@ public class GUI extends JFrame {
         });
     }
 
-    private class Listener implements ActionListener{
+    private class Listener implements ActionListener, MouseListener, KeyListener {
         private ImageIcon image;
+        private int clickCount;
         @Override
         public void actionPerformed(ActionEvent e) {
-            //JOptionPane.showMessageDialog(null, "Press button");
             imageLabel.setIcon(null);
             containerImage.remove(expectativesText);
-            if(e.getSource() == myPhoto){
-                this.image = new ImageIcon(getClass().getResource("/resources/Yo2.jpeg"));
-                imageLabel.setIcon(image);
-            }else if(e.getSource() == myHobby){
-                this.image = new ImageIcon(getClass().getResource("/resources/Hobby.jpeg"));
-                imageLabel.setIcon(image);
-            }else if(e.getSource() == myExpectations) {
+            revalidate();
+            repaint();
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            if (e.getKeyChar() == 'M' || e.getKeyChar() == 'm') {
+                myExpectations.doClick(); // hace clic en el botón
+                System.out.println("Key M has been pressed");
+                imageLabel.setIcon(null);
                 expectativesText.setText("""
                         I hope I can get as much as possible
-                         from my classmates and teacher""");
+                        from my classmates and teacher""");
                 expectativesText.setBackground(null);
                 expectativesText.setForeground(Color.BLACK);
                 containerImage.add(expectativesText);
             }
-            revalidate();
-            repaint();
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) { // detecta solo el clic izquierdo del mouse
+                clickCount++;
+                if (clickCount == 1) {
+                    System.out.println("Un click");
+                    this.image = new ImageIcon(getClass().getResource("/resources/Yo2.jpeg"));
+                    imageLabel.setIcon(image);
+                } else if (clickCount == 2) {
+                    System.out.println("Dos clicks");
+                    this.image = new ImageIcon(getClass().getResource("/resources/Hobby.jpeg"));
+                    imageLabel.setIcon(image);
+                    clickCount = 0; // reinicia el contador de clics
+                }
+
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
         }
     }
 }
