@@ -31,7 +31,7 @@ public class GUI extends JFrame {
         //Definir container y Layout del JFrame
         //Crear objetos Escucha y Control
         //Configurar JComponents
-        title = new Title("A little more about me", Color.BLACK);
+        title = new Title("A little more about me", Color.ORANGE);
         myPhoto = new JButton("This is me");
         myHobby = new JButton("This is my passion");
         myExpectations = new JButton("I expect to get the best of you");
